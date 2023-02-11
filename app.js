@@ -11,8 +11,7 @@ container.style.border = "solid 1px lightgrey";
 container.style.backgroundColor = "white";
 
 //Setup form
-container.innerHTML = `<form action="" method="get" class="form">
-<h1>Resume</h1>
+container.innerHTML = `<form action="" method="get" id="userForm" class="form">
 <div class="form-group">
   <label for="fname">First Name: </label>
   <input type="text" name="fname" id="fname" required>
@@ -55,7 +54,7 @@ container.innerHTML = `<form action="" method="get" class="form">
   <input type="value" id="country" name="country">
 </div>
 <div class="form-group">
-  <input type="submit" value="Submit!">
+  <input type="submit" value="Submit!" id="submit-btn">
 </div>
 </form>`;
 
@@ -69,7 +68,7 @@ form.style.fontWeight = "600";
 //Stylize Form Items
 let formGroup, i;
 formGroup = document.querySelectorAll(".form-group");
-for(i=0; i < formGroup.length; ++i) {
+for (i = 0; i < formGroup.length; ++i) {
   formGroup[i].style.display = "grid";
   formGroup[i].style.margin = "10px";
   formGroup[i].style.gridTemplateColumns = "15% 500px";
@@ -78,6 +77,16 @@ for(i=0; i < formGroup.length; ++i) {
 //Stylize input fields
 let inputfield, j;
 inputfield = document.getElementsByTagName("input");
-for(j=0; j < inputfield.length -1; ++j) {
+for (j = 0; j < inputfield.length - 1; ++j) {
   inputfield[j].style.width = "50%";
 }
+
+//Store User Submitted data in JSON
+document.getElementById("userForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  var object = {};
+  formData.forEach((value, key) => (object[key] = value));
+  var json = JSON.stringify(object);
+  console.log(json);
+});
